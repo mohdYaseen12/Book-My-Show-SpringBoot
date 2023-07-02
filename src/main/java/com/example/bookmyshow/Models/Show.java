@@ -1,7 +1,19 @@
 package com.example.bookmyshow.Models;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,8 +21,11 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="show")
+@Table(name="shows")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Show {
 
     @Id
@@ -21,13 +36,18 @@ public class Show {
 
     private Date date;
 
+    @ManyToOne
+    @JoinColumn
+    private Movie movie;
 
-    //parent of theater
-    @OneToMany(mappedBy = "show",cascade = CascadeType.ALL)
-    private List<Theater> theaterList = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn
+    private Theater theater;
 
-    // parent of showSeat class
     @OneToMany(mappedBy = "show",cascade = CascadeType.ALL)
     private List<ShowSeat> showSeatList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "show",cascade = CascadeType.ALL)
+    private List<Ticket> ticketList = new ArrayList<>();
 
 }

@@ -1,42 +1,42 @@
 package com.example.bookmyshow.Models;
 
-import jakarta.persistence.*;
-import lombok.Data;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name="ticket")
+@Table(name = "tickets")
 @Data
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    private int totalPrice;
+    private int totalTicketsPrice;
 
-    private String bookedSeat;
+    private String bookedSeats;
 
-    private LocalTime time;
-
-    private Date date;
-
-    private String movieName;
-
-    private String theaterName;
+    @CreationTimestamp
+    private Date bookedAt;
 
 
-    // parent of showSeat class;
-    @OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
-    private List<ShowSeat> showSeatList = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn
+    private Show show;
 
 
-    //child class, it's parent class is User
     @ManyToOne
     @JoinColumn
     private User user;
+
 }

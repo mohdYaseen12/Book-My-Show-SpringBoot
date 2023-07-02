@@ -1,14 +1,26 @@
 package com.example.bookmyshow.Models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -17,15 +29,12 @@ public class User {
 
     private String name;
 
-    private int age;
+    private Integer age;
 
-    @Column(nullable = false,unique = true)
-    private String mobileNo;
+    private String mobNo;
 
-    @Column(nullable = false, unique = true)
     private String email;
 
-    // parent of Ticket class.
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Ticket> ticketList = new ArrayList<>();
 
