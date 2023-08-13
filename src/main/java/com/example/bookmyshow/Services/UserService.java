@@ -42,4 +42,9 @@ public class UserService {
         UserResponseDto userResponseDto = UserTransformer.convertEntityToDto(UserAns);
         return userResponseDto;
     }
+
+    public List<User> findUsersGreaterThanAAge(Integer age) {
+        List<User> userList = userRepository.findUserWithAgeGreater(age);
+        return userList;
+    }
 }

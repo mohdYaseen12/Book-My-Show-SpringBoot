@@ -6,7 +6,7 @@ import lombok.Data;
 public class AddUserDto {
 
     private String name;
-    private int age;
+    private Integer age;
     private String mobileNo;
     private String email;
 
